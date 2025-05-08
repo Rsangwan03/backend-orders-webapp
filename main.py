@@ -6,6 +6,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+@app.middleware("http")
+async def redirect_http_to_https(request: Request, call_next):
+    if request.url.scheme == "http":
+        url = request.url.replace(scheme="https")
+        return RedirectResponse(url=str(url))
+    return await call_next(request)
+
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
