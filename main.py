@@ -8,10 +8,11 @@ from database import engine
 
 app = FastAPI()
 
-# Redirect HTTP to HTTPS
+# Redirect HTTP to HTTPS using x-forwarded-proto header (important for Azure)
 @app.middleware("http")
 async def redirect_http_to_https(request: Request, call_next):
-    if request.url.scheme == "http":
+    proto = request.headers.get("x-forwarded-proto")
+    if proto == "http":
         url = request.url.replace(scheme="https")
         return RedirectResponse(url=str(url))
     return await call_next(request)
