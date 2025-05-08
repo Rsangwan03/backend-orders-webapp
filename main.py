@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://stylestore-frontend-webapp-bpf4bjfgdha3gpcp.canadacentral-01.azurewebsites.net"],
+    allow_origins="https://stylestore-frontend-webapp-bpf4bjfgdha3gpcp.canadacentral-01.azurewebsites.net",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
